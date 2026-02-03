@@ -1,3 +1,4 @@
+import 'package:daily_planner_app/screens/add_note.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,7 +18,9 @@ class _HomeScreenState extends State<HomeScreen> {
         foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => AddNote()));
+        },
         shape: CircleBorder(),
         child: const Icon(Icons.add),
       ),
