@@ -1,3 +1,4 @@
+import 'package:daily_planner_app/helpers/datetime_helper.dart';
 import 'package:flutter/material.dart';
 
 class AddNote extends StatefulWidget {
@@ -8,6 +9,42 @@ class AddNote extends StatefulWidget {
 }
 
 class _AddNoteState extends State<AddNote> {
+  DateTime? selectedDate;
+  DateTime? selectedTime;
+
+  Future<void> pickDate() async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2001),
+      lastDate: DateTime(2100),
+    );
+    if (picked != null) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
+  Future<void> pickTime() async {
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (picked != null) {
+      final now = DateTime.now();
+      setState(() {
+        selectedTime = DateTime(
+          now.year,
+          now.month,
+          now.day,
+          picked.hour,
+          picked.minute,
+        );
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,9 +59,23 @@ class _AddNoteState extends State<AddNote> {
           children: [
             Row(
               children: [
-                ElevatedButton(onPressed: () {}, child: Text('Pick Date')),
+                ElevatedButton(
+                  onPressed: pickDate,
+                  child: Text(
+                    selectedDate == null
+                        ? 'Pick Date'
+                        : formatDate(selectedDate!),
+                  ),
+                ),
                 SizedBox(width: 8),
-                ElevatedButton(onPressed: () {}, child: Text('Pick Time')),
+                ElevatedButton(
+                  onPressed: pickTime,
+                  child: Text(
+                    selectedTime == null
+                        ? 'Pick Time'
+                        : formateTime(selectedTime!),
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 8),
