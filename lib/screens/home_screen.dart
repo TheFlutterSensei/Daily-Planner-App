@@ -1,6 +1,7 @@
 import 'package:daily_planner_app/helpers/datetime_helper.dart';
 import 'package:daily_planner_app/models/note.dart';
 import 'package:daily_planner_app/screens/add_note.dart';
+import 'package:daily_planner_app/screens/edit_note.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 
@@ -50,6 +51,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     icon: Icon(Icons.delete),
                   ),
+                  onTap: () async {
+                    final updatedNote = await Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => EditNote(note: note)),
+                    );
+                    if (updatedNote != null) {
+                      setState(() {
+                        final index = _notes.indexOf(note);
+                        _notes[index] = updatedNote;
+                      });
+                    }
+                  },
                 );
               },
             ),
