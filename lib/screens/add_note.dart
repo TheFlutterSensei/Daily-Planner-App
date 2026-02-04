@@ -1,4 +1,5 @@
 import 'package:daily_planner_app/helpers/datetime_helper.dart';
+import 'package:daily_planner_app/models/note.dart';
 import 'package:flutter/material.dart';
 
 class AddNote extends StatefulWidget {
@@ -11,6 +12,9 @@ class AddNote extends StatefulWidget {
 class _AddNoteState extends State<AddNote> {
   DateTime? selectedDate;
   DateTime? selectedTime;
+
+  final TextEditingController _title = TextEditingController();
+  final TextEditingController _content = TextEditingController();
 
   Future<void> pickDate() async {
     final picked = await showDatePicker(
@@ -43,6 +47,42 @@ class _AddNoteState extends State<AddNote> {
         );
       });
     }
+  }
+
+  void addNote() {
+    if (selectedDate == null) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Date is required')));
+      return;
+    }
+    if (selectedTime == null) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Time is required')));
+      return;
+    }
+    if (_title.text.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Title is required')));
+      return;
+    }
+    if (_content.text.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Content is required')));
+      return;
+    }
+    Navigator.pop(
+      context,
+      Note(
+        title: _title.text,
+        content: _content.text,
+        date: selectedDate!,
+        time: selectedTime!,
+      ),
+    );
   }
 
   @override
@@ -79,10 +119,14 @@ class _AddNoteState extends State<AddNote> {
               ],
             ),
             SizedBox(height: 8),
-            TextField(decoration: InputDecoration(labelText: 'Title')),
+            TextField(
+              controller: _title,
+              decoration: InputDecoration(labelText: 'Title'),
+            ),
             SizedBox(height: 8),
             Expanded(
               child: TextField(
+                controller: _content,
                 maxLines: null,
                 expands: true,
                 decoration: InputDecoration(
@@ -96,7 +140,7 @@ class _AddNoteState extends State<AddNote> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: addNote,
         shape: CircleBorder(),
         child: const Icon(Icons.save),
       ),
