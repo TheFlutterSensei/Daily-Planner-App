@@ -1,16 +1,26 @@
-# daily_planner_app
+### Daily Planner App
 
-A new Flutter project.
+Build a Flutter daily planner app. <br>
+Learn how to plan tasks and manage daily activities.<br>
+This project starts simple and scales to a real app.<br>
 
-## Getting Started
+Steps to use the app:
+1. Clone the repository
+2. Run ```flutter pub get```
+3. Run ```flutter run```
+4. Add and manage daily planner items
 
-This project is a starting point for a Flutter application.
+### Important Note:
+This GitHub version uses setState for state management.<br>
+It is meant for learning core Flutter concepts only.<br>
+The full course includes a Pro version of this app.<br>
+The Pro app uses Hive storage for local data persistence.<br>
+The Hive-based version is provided inside the course resources.<br>
 
-A few resources to get you started if this is your first Flutter project:
+### Build a Real Flutter Planner App
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+This mini class goes beyond basics.<br>
+Learn Hive storage and build a production-ready planner app.<br>
+Upgrade from simple state to real data persistence.<br>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+https://courses.fluttersensei.com/l/flutter-daily-planner
